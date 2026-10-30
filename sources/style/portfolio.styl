@@ -1,0 +1,635 @@
+// Recruiter-first layer: navigation bar, intro card and section panels
+// Uses the original palette (plum backgrounds, red accents, Amatic SC + Nunito)
+
+$plum = #251f2b
+$plumDark = #1d1721
+$red = #C21515
+$redDark = #46123B
+$accent = #ff5a4f
+$text = #f5eff8
+$muted = #c9bdd2
+$barHeight = 60px
+
+.portfolio
+    position fixed
+    inset 0
+    z-index 10
+    pointer-events none
+    color $text
+    font-family "Nunito", sans-serif
+    font-size 16px
+    line-height 1.5
+
+    a
+        color inherit
+
+    button
+        font inherit
+        color inherit
+
+    svg
+        width 1.1em
+        height 1.1em
+        fill none
+        stroke currentColor
+        stroke-width 2.2
+        stroke-linecap round
+        stroke-linejoin round
+        flex-shrink 0
+
+// Buttons
+.portfolio .button
+    display inline-flex
+    align-items center
+    justify-content center
+    gap 8px
+    min-height 44px
+    padding 10px 18px
+    border-radius 12px
+    font-weight 700
+    font-size 0.95em
+    text-decoration none
+    white-space nowrap
+    background rgba(255, 255, 255, 0.08)
+    border 1px solid rgba(255, 255, 255, 0.16)
+    transition background 0.2s, transform 0.2s
+
+    &:hover
+        background rgba(255, 255, 255, 0.16)
+
+    &:active
+        transform scale(0.97)
+
+    &.is-primary
+        background radial-gradient(ellipse at top right, $red, $redDark)
+        border-color rgba(255, 140, 120, 0.35)
+
+        &:hover
+            background radial-gradient(ellipse at top right, #dd2a20, #5a1749)
+
+    &:focus-visible
+        outline 2px solid #ffffff
+        outline-offset 2px
+
+// Top bar
+.portfolio-bar
+    pointer-events auto
+    position absolute
+    top 0
+    left 0
+    right 0
+    height $barHeight
+    display flex
+    align-items center
+    gap 12px
+    padding 0 16px
+    padding-left unquote("max(16px, env(safe-area-inset-left))")
+    padding-right unquote("max(16px, env(safe-area-inset-right))")
+    background rgba(29, 23, 33, 0.82)
+    backdrop-filter blur(10px)
+    border-bottom 1px solid rgba(255, 255, 255, 0.08)
+
+    .brand
+        display flex
+        align-items center
+        gap 10px
+        min-height 44px
+        flex-shrink 0
+
+    .brand-mark
+        display grid
+        place-items center
+        width 36px
+        height 36px
+        border-radius 10px
+        background radial-gradient(ellipse at top right, $red, $redDark)
+        font-weight 900
+        font-size 0.85em
+        letter-spacing 0.5px
+
+    .brand-name
+        font-family "Amatic SC", sans-serif
+        font-size 1.9em
+        font-weight 700
+        line-height 1
+
+    .button.is-compact
+        min-height 40px
+        padding 8px 14px
+        margin-left auto
+        flex-shrink 0
+
+.portfolio-nav
+    display flex
+    gap 2px
+    margin-left auto
+    overflow-x auto
+    scrollbar-width none
+
+    &::-webkit-scrollbar
+        display none
+
+    button
+        min-height 40px
+        padding 8px 12px
+        border-radius 10px
+        font-weight 700
+        font-size 0.9em
+        color $muted
+        white-space nowrap
+        transition color 0.2s, background 0.2s
+
+        &:hover
+            color #ffffff
+            background rgba(255, 255, 255, 0.08)
+
+        &.is-active
+            color #ffffff
+            background rgba(194, 21, 21, 0.45)
+
+    + .button.is-compact
+        margin-left 4px
+
+// Intro card
+.portfolio-intro
+    pointer-events auto
+    position absolute
+    top $barHeight + 20px
+    left 20px
+    width unquote("min(480px, calc(100% - 40px))")
+    max-height "calc(100% - %s)" % ($barHeight + 40px)
+    overflow-y auto
+    overscroll-behavior contain
+    padding 28px
+    border-radius 20px
+    background radial-gradient(ellipse at top left, rgba(37, 31, 43, 0.96), rgba(29, 23, 33, 0.96))
+    border 1px solid rgba(255, 255, 255, 0.1)
+    box-shadow 0 20px 60px rgba(0, 0, 0, 0.35)
+    transition opacity 0.35s, transform 0.35s, visibility 0.35s
+
+    &.is-hidden
+        opacity 0
+        visibility hidden
+        transform translateY(-12px)
+        pointer-events none
+
+    .eyebrow
+        color $accent
+        font-weight 900
+        font-size 0.75em
+        letter-spacing 2px
+        text-transform uppercase
+
+    h1
+        font-family "Amatic SC", sans-serif
+        font-size 3.6em
+        line-height 1
+        margin 4px 0 8px
+
+    .headline
+        font-size 1.08em
+        font-weight 700
+
+    .interests
+        margin-top 6px
+        color #ffceca
+        font-weight 700
+        font-size 0.92em
+
+    .summary
+        margin-top 12px
+        color $muted
+        font-size 0.95em
+
+    .highlights
+        list-style none
+        padding 0
+        display grid
+        grid-template-columns repeat(4, 1fr)
+        gap 8px
+        margin 18px 0
+
+        li
+            padding 10px 6px
+            border-radius 12px
+            background rgba(255, 255, 255, 0.06)
+            text-align center
+
+        strong
+            display block
+            font-size 1.3em
+            font-weight 900
+
+        span
+            display block
+            font-size 0.7em
+            line-height 1.25
+            color $muted
+
+    .actions
+        display flex
+        flex-wrap wrap
+        gap 10px
+
+    .quick
+        margin-top 16px
+        font-size 0.85em
+        color $muted
+
+        button
+            margin 2px 0 2px 6px
+            padding 2px 0
+            color #ffffff
+            font-weight 700
+            text-decoration underline
+            text-underline-offset 3px
+            text-decoration-color rgba(255, 255, 255, 0.35)
+
+            &:hover
+                text-decoration-color #ffffff
+
+    .contact-line
+        display flex
+        flex-wrap wrap
+        gap 6px 16px
+        margin-top 12px
+        font-size 0.85em
+
+        a
+            color #ffffff
+            text-underline-offset 3px
+
+    .drive-hint
+        margin-top 12px
+        font-size 0.8em
+        color $muted
+        opacity 0.8
+
+        &:empty
+            display none
+
+// Section panel
+.portfolio-panel
+    pointer-events auto
+    position absolute
+    top $barHeight + 16px
+    right 16px
+    bottom 16px
+    width unquote("min(460px, calc(100% - 32px))")
+    display flex
+    opacity 0
+    transform translateX(24px)
+    transition opacity 0.3s, transform 0.3s
+
+    &.is-open
+        opacity 1
+        transform none
+
+    &[hidden]
+        display none
+
+    .panel-inner
+        display flex
+        flex-direction column
+        width 100%
+        max-height 100%
+        margin-top auto
+        margin-bottom auto
+        border-radius 20px
+        background radial-gradient(ellipse at top left, rgba(37, 31, 43, 0.97), rgba(29, 23, 33, 0.97))
+        border 1px solid rgba(255, 255, 255, 0.1)
+        box-shadow 0 20px 60px rgba(0, 0, 0, 0.4)
+        overflow hidden
+
+    .panel-header
+        display flex
+        align-items center
+        justify-content space-between
+        gap 12px
+        padding 16px 16px 8px 24px
+
+        h2
+            font-family "Amatic SC", sans-serif
+            font-size 2.4em
+            line-height 1.05
+
+    .panel-close
+        display grid
+        place-items center
+        width 44px
+        height 44px
+        border-radius 12px
+        background rgba(255, 255, 255, 0.08)
+        flex-shrink 0
+
+        &:hover
+            background rgba(255, 255, 255, 0.16)
+
+    .panel-content
+        flex 1
+        overflow-y auto
+        overscroll-behavior contain
+        padding 4px 24px 20px
+
+    .panel-footer
+        display flex
+        justify-content space-between
+        gap 8px
+        padding 10px 16px
+        border-top 1px solid rgba(255, 255, 255, 0.08)
+
+        button
+            min-height 40px
+            padding 6px 10px
+            border-radius 10px
+            font-weight 700
+            font-size 0.85em
+            color $muted
+
+            &:hover
+                color #ffffff
+                background rgba(255, 255, 255, 0.08)
+
+// Panel content
+.portfolio-panel .panel-content
+    p
+        margin-bottom 10px
+        color $text
+
+    .lead
+        font-size 1.1em
+        font-weight 700
+
+    .note
+        margin-top 12px
+        color #ffceca
+        font-size 0.92em
+
+    h3
+        font-size 1.1em
+        font-weight 900
+
+    h4
+        margin 14px 0 6px
+        font-size 0.8em
+        font-weight 900
+        letter-spacing 1px
+        text-transform uppercase
+        color $accent
+
+    .entry
+        padding 16px 0
+        border-bottom 1px solid rgba(255, 255, 255, 0.08)
+
+        &:last-child
+            border-bottom none
+
+        header
+            margin-bottom 8px
+
+    .meta
+        display flex
+        flex-wrap wrap
+        gap 2px 10px
+        margin 2px 0 0
+        font-size 0.88em
+        color $muted
+
+        strong
+            color #ffceca
+
+    .bullets
+        padding-left 18px
+        margin 0
+
+        li
+            margin-bottom 5px
+            font-size 0.93em
+            color $text
+
+            &::marker
+                color $accent
+
+    .facts
+        dt
+            margin-top 10px
+            font-size 0.75em
+            font-weight 900
+            letter-spacing 1px
+            text-transform uppercase
+            color $accent
+
+        dd
+            font-size 0.93em
+
+    .score
+        font-size 0.95em
+
+    .chips
+        list-style none
+        padding 0
+        display flex
+        flex-wrap wrap
+        gap 6px
+
+        li
+            padding 4px 11px
+            border-radius 999px
+            background rgba(255, 255, 255, 0.07)
+            border 1px solid rgba(255, 255, 255, 0.12)
+            font-size 0.85em
+
+    .cards
+        list-style none
+        padding 0
+        display grid
+        gap 10px
+
+        li
+            padding 12px 14px
+            border-radius 14px
+            background rgba(255, 255, 255, 0.06)
+            border-left 3px solid $accent
+
+        h4
+            margin 0 0 2px
+            font-size 0.95em
+            letter-spacing 0
+            text-transform none
+            color #ffffff
+
+        p
+            margin 0
+            font-size 0.88em
+            color $muted
+
+    .skill-group h4:first-child
+        margin-top 4px
+
+    .contact-list
+        list-style none
+        padding 0
+        margin 14px 0
+
+        li
+            display flex
+            flex-wrap wrap
+            gap 0 12px
+            padding 8px 0
+            border-bottom 1px solid rgba(255, 255, 255, 0.08)
+
+        .label
+            width 80px
+            color $muted
+            font-size 0.85em
+
+        a
+            font-weight 700
+            word-break break-all
+
+    .actions
+        display flex
+        flex-wrap wrap
+        gap 10px
+        margin-top 16px
+
+// Make room for the bar in the original HUD
+.game
+    z-index 1
+
+.menu-trigger
+    top $barHeight + 16px !important
+
+.map-trigger
+    top $barHeight + 66px !important
+
+.headlights-trigger
+    top $barHeight + 116px !important
+
+    .headlights-icon
+        width 22px
+        height 22px
+        fill none
+        stroke #ffffff
+        stroke-width 2
+        stroke-linecap round
+        stroke-linejoin round
+        opacity 0.55
+        transition opacity 0.2s
+
+    &.is-active .headlights-icon
+        opacity 1
+        fill rgba(255, 233, 184, 0.9)
+
+.notifications
+    top $barHeight + 16px !important
+
+// The section panel sits where the map / menu buttons are: hide them while it's open
+body:has(.portfolio-panel.is-open)
+    .menu-trigger,
+    .map-trigger
+        opacity 0
+        pointer-events none
+
+// The game's own achievements and options related to removed features are hidden
+.menu .navigation .item[data-name="achievements"]
+    display none
+
+// Lightweight mode: no 3D, the portfolio uses the full screen
+html.is-lite
+    .game
+        display none
+
+    body
+        background radial-gradient(ellipse at top left, #3a2f43, $plumDark 70%)
+
+    .portfolio-intro
+        left 50%
+        transform translateX(-50%)
+        width unquote("min(620px, calc(100% - 32px))")
+
+        &.is-hidden
+            transform translate(-50%, -12px)
+
+    .portfolio-panel
+        left 50%
+        right auto
+        transform translateX(-50%)
+        width unquote("min(680px, calc(100% - 32px))")
+
+        &.is-open
+            transform translateX(-50%)
+
+// Loading feedback while the 3D world downloads
+html.is-loading-game:not(.is-started) .portfolio-intro .drive-hint::after
+    content " Loading the 3D world…"
+
+// Phones and small tablets
+@media (max-width 900px)
+    .portfolio-bar
+        flex-wrap wrap
+        height auto
+        padding-top 8px
+        padding-bottom 6px
+        gap 6px 10px
+
+        .brand-name
+            font-size 1.6em
+
+    .portfolio-nav
+        order 3
+        width 100%
+        margin 0 -4px
+
+    .portfolio-bar .portfolio-nav + .button.is-compact
+        margin-left auto
+
+        button
+            padding 6px 10px
+
+    .portfolio-intro,
+    html.is-lite .portfolio-intro
+        top 112px
+        max-height calc(100% - 124px)
+        padding 22px 20px
+
+        h1
+            font-size 3em
+
+    .portfolio-panel,
+    html.is-lite .portfolio-panel
+        top 112px
+        left 12px
+        right 12px
+        bottom 12px
+        width auto
+        transform translateY(16px)
+
+        &.is-open
+            transform none
+
+    .menu-trigger
+        top 124px !important
+
+    .map-trigger
+        top 174px !important
+
+    .headlights-trigger
+        top 224px !important
+
+    .notifications
+        top 124px !important
+
+@media (max-width 520px)
+    .portfolio-intro
+        .highlights
+            grid-template-columns repeat(2, 1fr)
+
+        .actions .button
+            flex 1 1 100%
+
+    .portfolio-bar .button.is-compact span
+        display none
+
+    .portfolio-panel .panel-header h2
+        font-size 2em
